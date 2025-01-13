@@ -6,79 +6,66 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import ru.yandex.praktikum.MainPage;
+import ru.yandex.praktikum.Order;
 import ru.yandex.praktikum.UiTest;
 import ru.yandex.praktikum.OrderStatusPage;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
 
+@RunWith(Parameterized.class)
 public class OrderMainTest extends UiTest {
+    private int questionNumber;
 
-    @Test
-    public void orderNotFoundShouldBeDisplayed() {
-        webDriver.findElement(By.className("Header_Link__1TAG7")).click();
-        webDriver.findElement(By.xpath("//input[@class='Input_Input__1iN_Z Header_Input__xIoUq']")).sendKeys("123");
-        webDriver.findElement(By.xpath("//button[@class='Button_Button__ra12g Header_Button__28dPO']")).click();
-        boolean isDisplayed = webDriver.findElement(By.cssSelector(".Track_NotFound__6oaoY")).isDisplayed();
-        Assert.assertTrue("Order not found image is not displayed", isDisplayed);
+    public OrderMainTest(int questionNumber) {
+        this.questionNumber = questionNumber;
     }
-    @Test
-    public void orderNotFoundShouldBeDisplayedPOM() {
-        MainPage mainPage = new MainPage(webDriver);
-        mainPage.clickOrderStatusButton();
-        mainPage.enterOrderNumber("123");
-        mainPage.clickGoButton();
-        OrderStatusPage orderStatusPage = new OrderStatusPage(webDriver);
-        boolean isDisplayed = orderStatusPage.orderNotFoundIsDisplayed();
-        Assert.assertTrue("Order not found image is not displayed", isDisplayed);
 
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> getFaqData() {
+        return Arrays.asList(new Object[][]{
+                {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}
+        });
     }
 
     @Test
-    public void scrollFaq (){
-        MainPage mainPage= new MainPage(webDriver);
-        mainPage.scrollToFaq();
-        mainPage.clickQuestionOne();
-    }
-    @Test
-    public void clickToFaqTwo () {
+    public void clicktoFaq() {
         MainPage mainPage = new MainPage(webDriver);
         mainPage.scrollToFaq();
-        mainPage.clickQuestionTwo();
+        switch (questionNumber) {
+            case 1:
+                mainPage.clickQuestionOne();
+                break;
+            case 2:
+                mainPage.clickQuestionTwo();
+                break;
+            case 3:
+                mainPage.clickQuestionThree();
+                break;
+            case 4:
+                mainPage.clickQuestionFour();
+                break;
+            case 5:
+                mainPage.clickQuestionFive();
+                break;
+            case 6:
+                mainPage.clickQuestionSix();
+                break;
+            case 7:
+                mainPage.clickQuestionSeven();
+                break;
+            case 8:
+                mainPage.clickQuestionEight();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid question number: " + questionNumber);
+        }
     }
-    @Test
-    public void clickToFaqThree () {
-        MainPage mainPage = new MainPage(webDriver);
-        mainPage.scrollToFaq();
-        mainPage.clickQuestionThree();
-    }
-    @Test
-    public void clickToFaqFour () {
-        MainPage mainPage = new MainPage(webDriver);
-        mainPage.scrollToFaq();
-        mainPage.clickQuestionFour();
-    }
-    @Test
-    public void clickToFaqFive () {
-        MainPage mainPage = new MainPage(webDriver);
-        mainPage.scrollToFaq();
-        mainPage.clickQuestionFive();
-    }
-    @Test
-    public void clickToFaqSix () {
-        MainPage mainPage = new MainPage(webDriver);
-        mainPage.scrollToFaq();
-        mainPage.clickQuestionSix();
-    }
-    @Test
-    public void clickToFaqSeven () {
-        MainPage mainPage = new MainPage(webDriver);
-        mainPage.scrollToFaq();
-        mainPage.clickQuestionSeven();
-    }
-    @Test
-    public void clickToFaqEight () {
-        MainPage mainPage = new MainPage(webDriver);
-        mainPage.scrollToFaq();
-        mainPage.clickQuestionEight();
-    }
-
 }
+
+
+
+

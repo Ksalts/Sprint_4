@@ -2,59 +2,89 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.yandex.praktikum.Order;
 import ru.yandex.praktikum.UiTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import java.util.Arrays;
+import java.util.Collection;
 
+@RunWith(Parameterized.class)
 public class OrderTest extends UiTest {
-    @Test
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String phone;
+    private final String day;
+    private final String comment;
 
-    public void firstOrder (){
+    // Конструктор для параметров
+    public OrderTest(String name, String surname, String address, String phone, String day, String comment) {
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.phone = phone;
+        this.day = day;
+        this.comment = comment;
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> getOrderData() {
+        return Arrays.asList(new Object[][]{
+                {"Стивен", "Кинг", "Зеленая, 30", "87771232329", "12.01.2024", "хорошее привозите, а плохое не привозите"},
+                {"Иван", "Иванов", "Ленина, 10", "89991112233", "15.01.2024", "тестовый заказ"}
+        });
+    }
+
+    @Test
+    public void firstOrder() {
         Order order = new Order(webDriver);
         order.clickOrderButtonTop();
-        order.enterName("Александр");
-        order.enterSurname("Пушкин");
-        order.enterAdress("Пушкина, 30");
+        order.enterName(name);
+        order.enterSurname(surname);
+        order.enterAdress(address);
 
         order.clickMetroStation();
         order.stationSokolniki();
-        order.enterNumber("87771232349");
+        order.enterNumber(phone);
         order.clickContinueButton();
 
-        order.DeliveryDate("11.01.2024");
+        order.DeliveryDate(day);
         order.clickEmptySpace();
         order.clickRentalPeriod();
         order.clickThreeDayRental();
         order.clickColorGray();
-        order.enterComment("тык тык тык");
+        order.enterComment(comment);
         order.clickOrderButtonMiddle();
         order.clickYesButton();
-        boolean isDisplayed = order.displayButtonViev();
+
+        boolean isDisplayed = order.displayButtonView();
         Assert.assertTrue("Кнопка 'Посмотреть статус' не найдена", isDisplayed);
         order.clickButtonViewOrder();
-
-
     }
+
 
     @Test
     public void secondOrder(){
         Order order = new Order(webDriver);
-        order.clickOrderButtonTop();
-        order.enterName("Стивен");
-        order.enterSurname("Кинг");
-        order.enterAdress("Зеленая, 30");
+        order.scrollToOrderButtonBig();
+        order.clickOrderButtonBig();
+        order.enterName(name);
+        order.enterSurname(surname);
+        order.enterAdress(address);
 
         order.clickMetroStation();
         order.stationSokolniki();
-        order.enterNumber("87771232329");
+        order.enterNumber(phone);
         order.clickContinueButton();
 
-        order.DeliveryDate("12.01.2024");
+        order.DeliveryDate(day);
         order.clickEmptySpace();
         order.clickRentalPeriod();
         order.clickTwoDayRental();
         order.clickColorGray();
-        order.enterComment("хорошее привозите, а плохое не привозите");
+        order.enterComment(comment);
         order.clickOrderButtonMiddle();
         order.clickYesButton();
-        boolean isDisplayed = order.displayButtonViev();
+        boolean isDisplayed = order.displayButtonView();
         Assert.assertTrue("Кнопка 'Посмотреть статус' не найдена", isDisplayed);
         order.clickButtonViewOrder();
 
@@ -81,7 +111,7 @@ public class OrderTest extends UiTest {
 
         order.enterName("ertwert");
         order.clickEmptySpace();
-        boolean isName = order.ErrorNameText();
+        boolean isName = order.errorNameText();
         Assert.assertTrue("Некорректное имя", isName );
 
 

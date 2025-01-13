@@ -1,11 +1,14 @@
 package ru.yandex.praktikum;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class Order extends BasePage{
     private By orderButton =  By.className("Button_Button__ra12g"); //кнопка "Заказать"
-    private By OrderButtonBig = By.className("Button_Button__ra12g Button_UltraBig__UU3Lp"); //Большая кнопка "Заказать"
+    private By orderButtonBig = By.xpath("//*[@id=\"root\"]/div/div/div[4]/div[2]/div[5]/button"); //Большая кнопка "Заказать"
     private By nameField = By.xpath("//input[@placeholder='* Имя']"); //поле "Имя"
     private By surnameField = By.xpath("//input[@class='Input_Input__1iN_Z Input_Responsible__1jDKN']"); //Поле "Фамилия"
     private By adressField = By.xpath("//input[@class='Input_Input__1iN_Z Input_Responsible__1jDKN']"); //Поле "Адрес"
@@ -32,11 +35,26 @@ public class Order extends BasePage{
     private By yandex = By.xpath(".//img[@src='/assets/ya.svg']");
     private By errorMessage = By.xpath(".//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6']");
 
+    public void orderNotFoundShouldBeDisplayed() {
+        webDriver.findElement(By.className("Header_Link__1TAG7")).click();
+        webDriver.findElement(By.xpath("//input[@class='Input_Input__1iN_Z Header_Input__xIoUq']")).sendKeys("123");
+        webDriver.findElement(By.xpath("//button[@class='Button_Button__ra12g Header_Button__28dPO']")).click();
+        boolean isDisplayed = webDriver.findElement(By.cssSelector(".Track_NotFound__6oaoY")).isDisplayed();
+        Assert.assertTrue("Order not found image is not displayed", isDisplayed);
+    }
+
     public Order (WebDriver webDriver) {
         super(webDriver);
     }
         public void clickOrderButtonTop(){
             webDriver.findElement(orderButton).click();
+        }
+        public void clickOrderButtonBig(){
+        webDriver.findElement(orderButtonBig).click();
+        }
+        public void scrollToOrderButtonBig(){
+            WebElement element = webDriver.findElement(orderButtonBig);
+            ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", element);
         }
         public void enterName(String text){
             webDriver.findElement(nameField).sendKeys(text);
@@ -91,7 +109,7 @@ public class Order extends BasePage{
             webDriver.findElement(buttonYes).click();
         }
 
-        public boolean displayButtonViev () {
+        public boolean displayButtonView() {
             return webDriver.findElement(viewOrderButton).isDisplayed();
         }
         public void clickButtonViewOrder () {
@@ -104,7 +122,7 @@ public class Order extends BasePage{
 
         public void clickYandex () {webDriver.findElement(yandex).click();}
         public boolean displayYandex () {return webDriver.findElement(yandex).isDisplayed();};
-        public boolean ErrorNameText () {return webDriver.findElement(errorMessage).isDisplayed();}
+        public boolean errorNameText() {return webDriver.findElement(errorMessage).isDisplayed();}
 
 
 
