@@ -80,7 +80,7 @@ public class Order extends BasePage{
         public void clickContinueButton(){
             webDriver.findElement(continueButton).click();
         }
-        public void DeliveryDate(String day){
+        public void deliveryDate(String day){
             webDriver.findElement(deliveryDate).sendKeys(day);
         }
         public void clickRentalPeriod(){

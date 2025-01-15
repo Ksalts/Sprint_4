@@ -47,7 +47,7 @@ public class OrderTest extends UiTest {
         order.enterNumber(phone);
         order.clickContinueButton();
 
-        order.DeliveryDate(day);
+        order.deliveryDate(day);
         order.clickEmptySpace();
         order.clickRentalPeriod();
         order.clickThreeDayRental();
@@ -76,7 +76,7 @@ public class OrderTest extends UiTest {
         order.enterNumber(phone);
         order.clickContinueButton();
 
-        order.DeliveryDate(day);
+        order.deliveryDate(day);
         order.clickEmptySpace();
         order.clickRentalPeriod();
         order.clickTwoDayRental();
@@ -91,7 +91,7 @@ public class OrderTest extends UiTest {
 
     }
     @Test
-    public void CheckSamokat () {
+    public void checkSamokat () {
         Order order = new Order(webDriver);
 
 
@@ -105,7 +105,7 @@ public class OrderTest extends UiTest {
         Assert.assertTrue("Не попал на главную страницу Yandex", isDisplayedThree);
     }
     @Test
-    public void CheckOrder () {
+    public void checkOrder () {
         Order order = new Order(webDriver);
         order.clickOrderButtonTop();
 

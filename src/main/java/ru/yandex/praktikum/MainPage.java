@@ -11,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 
 public class MainPage extends BasePage { // Элементы на главной странице
   private By orderButton =  By.className("Button_Button__ra12g"); //кнопка "Заказать"
-    private By OrderButtonBig = By.className("Button_Button__ra12g Button_UltraBig__UU3Lp"); //Большая кнопка "Заказать"
     private By orderStatusButton = By.className("Header_Link__1TAG7"); //кнопка "Статус заказа"
     private By orderNumberField = By.xpath("//input[@class='Input_Input__1iN_Z Header_Input__xIoUq']"); //поле "номер заказа"
     private  By goButton = By.xpath("//button[@class='Button_Button__ra12g Header_Button__28dPO']"); //кнопка Go
